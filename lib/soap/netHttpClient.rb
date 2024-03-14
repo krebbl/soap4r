@@ -26,7 +26,7 @@ class NetHttpClient
   attr_reader :proxy
   attr_accessor :no_proxy
   attr_accessor :debug_dev
-  attr_accessor :ssl_config		# ignored for now.
+  attr_accessor :ssl_config
   attr_accessor :protocol_version	# ignored for now.
   attr_accessor :connect_timeout
   attr_accessor :send_timeout           # ignored for now.
@@ -41,10 +41,11 @@ class NetHttpClient
     @test_loopback_response = []
     @request_filter = Filter::FilterChain.new
     @session_manager = SessionManager.new
-    @no_proxy = @ssl_config = @protocol_version = nil
+    @ssl_config = ::SOAP::Property.new
+    @no_proxy = @protocol_version = nil
     @connect_timeout = @send_timeout = @receive_timeout = nil
   end
-  
+
   def proxy=(proxy)
     if proxy.nil?
       @proxy = nil
@@ -138,10 +139,10 @@ private
       http.post(url.request_uri, req_body, extra)
     }
     case res
-    when Net::HTTPRedirection 
+    when Net::HTTPRedirection
       if redirect_count > 0
         post_redirect(res['location'], req_body, header,
-          redirect_count - 1) 
+          redirect_count - 1)
       else
        raise ArgumentError.new("Too many redirects")
       end
@@ -180,6 +181,9 @@ private
     when URI::HTTPS
       if SSLEnabled
 	http.use_ssl = true
+  ssl_config.each do |key, value|
+    http.send("#{key}=", value)
+  end
       else
 	raise RuntimeError.new("Cannot connect to #{url} (OpenSSL is not installed.)")
       end

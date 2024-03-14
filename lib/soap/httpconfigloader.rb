@@ -79,40 +79,7 @@ module_function
   end
 
   def set_ssl_config(client, ssl_config)
-    ssl_config.each do |key, value|
-      cfg = client.ssl_config
-      if cfg.nil?
-        raise NotImplementedError.new("SSL not supported")
-      end
-      case key
-      when 'client_cert'
-        cfg.client_cert = cert_from_file(value)
-      when 'client_key'
-        cfg.client_key = key_from_file(value)
-      when 'client_ca'
-        cfg.client_ca = value
-      when 'ca_path'
-        cfg.set_trust_ca(value)
-      when 'ca_file'
-        cfg.set_trust_ca(value)
-      when 'crl'
-        cfg.set_crl(value)
-      when 'verify_mode'
-        cfg.verify_mode = ssl_config_int(value)
-      when 'verify_depth'
-        cfg.verify_depth = ssl_config_int(value)
-      when 'options'
-        cfg.options = value
-      when 'ciphers'
-        cfg.ciphers = value
-      when 'verify_callback'
-        cfg.verify_callback = value
-      when 'cert_store'
-        cfg.cert_store = value
-      else
-        raise ArgumentError.new("unknown ssl_config property #{key}")
-      end
-    end
+    client.ssl_config = ssl_config if ssl_config
   end
 
   def ssl_config_int(value)
