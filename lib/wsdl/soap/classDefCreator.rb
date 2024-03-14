@@ -349,7 +349,7 @@ private
         raise RuntimeError.new("unknown type: #{element}")
       end
     end
-    [init_lines, init_params]
+    [init_lines, init_params.uniq]
   end
 
   def define_attribute(c, attributes)
