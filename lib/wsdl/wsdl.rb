@@ -18,6 +18,7 @@ Version = '0.0.2'
 
 Namespace = 'http://schemas.xmlsoap.org/wsdl/'
 SOAPBindingNamespace ='http://schemas.xmlsoap.org/wsdl/soap/'
+SOAP12BindingNamespace = 'http://schemas.xmlsoap.org/wsdl/soap12/'
 
 class Error < StandardError; include ::SOAP::NestedException; end
 

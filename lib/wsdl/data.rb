@@ -51,6 +51,13 @@ SOAPBodyName = XSD::QName.new(SOAPBindingNamespace, 'body')
 SOAPFaultName = XSD::QName.new(SOAPBindingNamespace, 'fault')
 SOAPOperationName = XSD::QName.new(SOAPBindingNamespace, 'operation')
 
+SOAP12AddressName = XSD::QName.new(SOAP12BindingNamespace, 'address')
+SOAP12HeaderName = XSD::QName.new(SOAP12BindingNamespace, 'header')
+SOAP12BodyName = XSD::QName.new(SOAP12BindingNamespace, 'body')
+SOAP12FaultName = XSD::QName.new(SOAP12BindingNamespace, 'fault')
+SOAP12OperationName = XSD::QName.new(SOAP12BindingNamespace, 'operation')
+SOAP12BindingName = XSD::QName.new(SOAP12BindingNamespace, 'binding')
+
 BindingAttrName = XSD::QName.new(nil, 'binding')
 ElementAttrName = XSD::QName.new(nil, 'element')
 LocationAttrName = XSD::QName.new(nil, 'location')
